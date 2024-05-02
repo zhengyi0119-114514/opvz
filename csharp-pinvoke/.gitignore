@@ -1,0 +1,14 @@
+.vscode/
+.mono/
+.idea/
+MainProgram/bin/
+MainProgram/Libs/
+MainProgram/obj/
+P-InvokeHostLibrary/bin/
+P-InvokeHostLibrary/Libs/
+P-InvokeHostLibrary/obj/
+build/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
