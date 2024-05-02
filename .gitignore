@@ -33,6 +33,7 @@ $RECYCLE.BIN/
 ehthumbs.db
 Thumbs.db
 conanfile.txt
+conanfile.py 
 
 
 CMakeLists.txt.user
