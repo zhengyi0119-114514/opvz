@@ -1,12 +1,24 @@
 cmake_minimum_required(VERSION 3.16)
 project(OPVZ VERSION 0.1.0)
 
-#添加库
+macro(Log DATE)
+    string(TIMESTAMP TIME "\"%Y.%m.%d-%H:%M:%S\"")
+    file(APPEND "${PROJECT_SOURCE_DIR}/Log/output.log" 
+        "${TIME}:${DATE}\n")
+    message(NOTICE "${TIME}:${DATE}")
+endmacro()
 
-#实际上是添加子目录
-add_subdirectory("${PROJECT_SOURCE_DIR}/libraries/rapidjson")
+
+#附加日志
+file(APPEND "${PROJECT_SOURCE_DIR}/Log/output.log" 
+    "\n------------------start-----------------\n")
+log("srart:${PROJECT_NAME}")
+log("path :${PROJECT_SOURCE_DIR}")
+
+#添加库
 #讲究的就是暴力
 include("${PROJECT_SOURCE_DIR}/libraries/SDL2/cmake/sdl2-config.cmake")
+log("find sdl2 lib")
 
 #语言标准设置
 #C:17 C++:20
@@ -15,24 +27,29 @@ set(CMAKE_C_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_STANDARD 20) 
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
+log("C:${CMAKE_C_STANDARD} C++:${CMAKE_CXX_STANDARD}")
 #设置输出路径
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/")
 set(LIBRARY_OUTPUT_PATH "&{PROJECT_SOURCE_DIR}/build/")
+log("out put path ${EXECUTABLE_OUTPUT_PATH}")
 
 #导出项目信息
 string(TIMESTAMP MAKE_TIME "\"%Y.%m.%d-%H:%M:%S\"")
 configure_file(Information.h.in "${PROJECT_SOURCE_DIR}/Information.h")
 
+
+
 #构建项目
 add_executable(${PROJECT_NAME} main.cpp)
+log("add exe")
 
 message(NOTICE "link to libs\n")
 target_link_libraries(${PROJECT_NAME} SDL2::SDL2main)
-link_libraries(rapidjson)
-#target_link_libraries(PROJECT_NAME icu::icu)
 #复制数据
 file(
     COPY "${PROJECT_SOURCE_DIR}/date"
     DESTINATION "${EXECUTABLE_OUTPUT_PATH}/date"
 )
 
+file(APPEND "${PROJECT_SOURCE_DIR}/Log/output.log" 
+    "\n-------------------end------------------\n")

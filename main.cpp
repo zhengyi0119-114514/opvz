@@ -1,11 +1,10 @@
-#include <fstream>
+#include "include/SDL2/SDL_main.h"
 #define __STDC_WANT_LIB_EXT1__ 1
 #include <stdio.h>
 #include <string.h>
 #include "Information.h"
 #include "./Debug.h"
-#include "./include/rapidjson/document.h"
-namespace rajs = rapidjson;
+
 
 
 int main (int agvc,char** agvs)
@@ -17,7 +16,12 @@ int main (int agvc,char** agvs)
             PROJECT_NAME_W,PROJECT_VERSION_W,PROJECT_BUILD_TIME_W);
         RunIfNoDebug(return 0);
     }
-    auto doc=rajs::Document();
-    std::fstream jsFile(L"date/");
     ReadAnyKey();
+    return SDL_main(agvc,agvs);
+}
+#include "./include/SDL2/SDL.h"
+int main()
+{
+    SDL_Init(SDL_INIT_AUDIO);
+    return 0;
 }
