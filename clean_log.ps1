@@ -1,1 +1,1 @@
-del "./Log/*.log"S
+del "./Log/*.log"

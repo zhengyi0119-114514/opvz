@@ -1,3 +1,5 @@
+﻿
+
 cmake_minimum_required(VERSION 3.16)
 project(OPVZ VERSION 0.1.0)
 
@@ -9,10 +11,6 @@ start_log()
 append_log("srart:${PROJECT_NAME}")
 append_log("path :${PROJECT_SOURCE_DIR}")
 
-#添加库
-#讲究的就是暴力
-include("${PROJECT_SOURCE_DIR}/libraries/SDL2/cmake/sdl2-config.cmake")
-append_log("find sdl2 lib")
 
 #语言标准设置
 #C:17 C++:20
@@ -36,11 +34,10 @@ configure_file(Information.h.in "${PROJECT_SOURCE_DIR}/Information.h")
 
 
 #构建项目
-add_executable(${PROJECT_NAME} main.cpp)
 append_log("add exe")
+add_executable(${PROJECT_NAME} main.cpp)
 
-target_link_libraries(${PROJECT_NAME} SDL2::SDL2main)
-append_log("link library")
+
 #复制数据
 file(
     COPY "${PROJECT_SOURCE_DIR}/date"
