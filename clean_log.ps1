@@ -1,0 +1,1 @@
+del "./Log/*.log"S

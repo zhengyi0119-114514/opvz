@@ -1,4 +1,3 @@
-#include "include/SDL2/SDL_main.h"
 #define __STDC_WANT_LIB_EXT1__ 1
 #include <stdio.h>
 #include <string.h>
@@ -16,12 +15,6 @@ int main (int agvc,char** agvs)
             PROJECT_NAME_W,PROJECT_VERSION_W,PROJECT_BUILD_TIME_W);
         RunIfNoDebug(return 0);
     }
+    printf_s("");
     ReadAnyKey();
-    return SDL_main(agvc,agvs);
-}
-#include "./include/SDL2/SDL.h"
-int main()
-{
-    SDL_Init(SDL_INIT_AUDIO);
-    return 0;
 }

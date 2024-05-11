@@ -6,5 +6,6 @@ public class Program
     {
         Console.WriteLine("Hello World");
         Console.ReadLine();
+        SDL.SDL_Init(SDL.SDL_INIT_VIDEO);
     }
 }
