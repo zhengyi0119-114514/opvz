@@ -1,1 +1,1 @@
-del "./Log/*.log"
+Remove-Item "./Log/*.log"

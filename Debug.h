@@ -2,14 +2,6 @@
 #include<stdbool.h>
 #endif 
 
-#ifdef __cplusplus
-extern "C"
-
-#endif
-
-
-
-
 #if (defined NDEBUG)||!(defined _DEBUG)
 //生成
 
@@ -32,17 +24,11 @@ extern "C"
 #define __STDC_WANT_LIB_EXT1__
 #endif
 #include <stdio.h>
+
+
 inline void ReadAnyKey()
 {
     char a =0;
+    printf_s("%s","\n按任意键继续\n");
     scanf_s("%c",&a);
 }
-
-
-
-
-
-
-#ifdef __plusplus
-
-#endif

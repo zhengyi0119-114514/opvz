@@ -2,7 +2,16 @@
 
 cmake_minimum_required(VERSION 3.16)
 project(OPVZ VERSION 0.1.0)
+#[[
 
+项目在此发布
+gitee :https://gitee.com/zhengyi0119/opvz
+github:https://github.com/zhengyi0119-114514/opvz
+
+]]
+#设置输出路径
+set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/out")
+set(LIBRARY_OUTPUT_PATH "&{PROJECT_SOURCE_DIR}/build/out")
 
 include("${PROJECT_SOURCE_DIR}/cmake/log.cmake")
 start_log()
@@ -10,7 +19,6 @@ start_log()
 
 append_log("srart:${PROJECT_NAME}")
 append_log("path :${PROJECT_SOURCE_DIR}")
-
 
 #语言标准设置
 #C:17 C++:20
@@ -20,11 +28,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 append_log("C:${CMAKE_C_STANDARD} C++:${CMAKE_CXX_STANDARD}")
-
-#设置输出路径
-set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/")
-set(LIBRARY_OUTPUT_PATH "&{PROJECT_SOURCE_DIR}/build/")
-
 append_log("out put path ${EXECUTABLE_OUTPUT_PATH}")
 
 #导出项目信息
@@ -34,8 +37,8 @@ configure_file(Information.h.in "${PROJECT_SOURCE_DIR}/Information.h")
 
 
 #构建项目
-append_log("add exe")
-add_executable(${PROJECT_NAME} main.cpp)
+append_log("add exe :${PROJECT_NAME}")
+add_executable(${PROJECT_NAME} total.cpp)
 
 
 #复制数据
