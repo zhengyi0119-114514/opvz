@@ -1,50 +1,59 @@
-﻿
-
-cmake_minimum_required(VERSION 3.16)
+﻿cmake_minimum_required(VERSION 3.20.0)
 project(OPVZ VERSION 0.1.0)
-#[[
+#[=[
 
 项目在此发布
 gitee :https://gitee.com/zhengyi0119/opvz
 github:https://github.com/zhengyi0119-114514/opvz
 
-]]
-#设置输出路径
-set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/out")
-set(LIBRARY_OUTPUT_PATH "&{PROJECT_SOURCE_DIR}/build/out")
+]=]
 
-include("${PROJECT_SOURCE_DIR}/cmake/log.cmake")
-start_log()
-#附加日志
-
-append_log("srart:${PROJECT_NAME}")
-append_log("path :${PROJECT_SOURCE_DIR}")
+set(CMAKE_SYSTEM_NAME CMAKE_HOST_SYSTEM_NAME CACHE STRING "system what you want to build for(目标系统)" FORCE)
+set(CMAKE_SYSTEM_PROCESSOR CMAKE_HOST_SYSTEM_PROCESSOR CACHE STRING "system processor you want to build for.(目标架构)" FORCE)
 
 #语言标准设置
 #C:17 C++:20
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED TRUE)
-set(CMAKE_CXX_STANDARD 20) 
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
-append_log("C:${CMAKE_C_STANDARD} C++:${CMAKE_CXX_STANDARD}")
-append_log("out put path ${EXECUTABLE_OUTPUT_PATH}")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+set(__root_cmake_module_path "${CMAKE_SOURCE_DIR}/cmake")
+include(install)
+include(config)
+install(export)
 
-#导出项目信息
-string(TIMESTAMP MAKE_TIME "\"%Y.%m.%d-%H:%M:%S\"")
-configure_file(Information.h.in "${PROJECT_SOURCE_DIR}/Information.h")
-
-
-
-#构建项目
-append_log("add exe :${PROJECT_NAME}")
-add_executable(${PROJECT_NAME} total.cpp)
+#禁用内构建
+if(CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+    message(FATAL_ERROR "You can't build in sources dir.\nPlease use cmake -Bbuild ...")
+endif()
 
 
-#复制数据
-file(
-    COPY "${PROJECT_SOURCE_DIR}/date"
-    DESTINATION "${EXECUTABLE_OUTPUT_PATH}/date"
+
+#代码测试
+add_subdirectory(test)
+
+#项目结构分层
+add_subdirectory(src)
+
+
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "build type" FORCE)
+endif()
+
+#设置输出路径
+message(NOTICE "${CMAKE_SYSTEM_NAME}--${CMAKE_SYSTEM_PROCESSOR}")
+
+
+#添加主程序
+add_executable(opvz_main total.cpp)
+add_custom_command(
+    TARGET opvz_main
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E 
+        copy_directory 
+        "\"${CMAKE_SOURCE_DIR}/date\""#from
+        "\"${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/date\""
 )
-
-end_log()
