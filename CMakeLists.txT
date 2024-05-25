@@ -8,8 +8,8 @@ github:https://github.com/zhengyi0119-114514/opvz
 
 ]=]
 
-set(CMAKE_SYSTEM_NAME CMAKE_HOST_SYSTEM_NAME CACHE STRING "system what you want to build for(目标系统)" FORCE)
-set(CMAKE_SYSTEM_PROCESSOR CMAKE_HOST_SYSTEM_PROCESSOR CACHE STRING "system processor you want to build for.(目标架构)" FORCE)
+set(CMAKE_SYSTEM_NAME ${CMAKE_HOST_SYSTEM_NAME} CACHE STRING "system what you want to build for(目标系统)" FORCE)
+set(CMAKE_SYSTEM_PROCESSOR ${CMAKE_HOST_SYSTEM_PROCESSOR} CACHE STRING "system processor you want to build for.(目标架构)" FORCE)
 
 #语言标准设置
 #C:17 C++:20
@@ -22,7 +22,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 set(__root_cmake_module_path "${CMAKE_SOURCE_DIR}/cmake")
 include(install)
 include(config)
-install(export)
+include(export)
 
 #禁用内构建
 if(CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
@@ -30,22 +30,21 @@ if(CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
 endif()
 
 
-
-#代码测试
-add_subdirectory(test)
-
 #项目结构分层
 add_subdirectory(src)
 
 
 
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "build type" FORCE)
+set(CMAKE_BUILD_TYPE "Release" CACHE STRING "build type" FORCE)
 endif()
 
 #设置输出路径
 message(NOTICE "${CMAKE_SYSTEM_NAME}--${CMAKE_SYSTEM_PROCESSOR}")
 
+
+#代码测试
+add_subdirectory(test)
 
 #添加主程序
 add_executable(opvz_main total.cpp)
@@ -53,7 +52,7 @@ add_custom_command(
     TARGET opvz_main
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E 
-        copy_directory 
-        "\"${CMAKE_SOURCE_DIR}/date\""#from
+    copy_directory 
+    "\"${CMAKE_SOURCE_DIR}/date\""#from
         "\"${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/date\""
 )

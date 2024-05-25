@@ -15,7 +15,9 @@ if(NOT Catch2_Found)
     include(Catch)
 endif()    
 
-add_executable(unit_tasts test_for_test.cpp)
+add_executable(unit_tasts EXCLUDE_FROM_ALL test_for_test.cpp test_registrar.cpp)
 target_link_libraries(unit_tasts PRIVATE sut Catch2::Catch2WithMain)
+target_link_libraries(unit_tasts PRIVATE module_registrar)
+
 catch_discover_tests(unit_tasts)
 

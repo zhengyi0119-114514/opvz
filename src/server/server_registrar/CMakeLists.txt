@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.20.0)
+project(module_registrar LANGUAGES C)
+add_library(${PROJECT_NAME} SHARED ModuleRegistar.c)
+add_export_headfile("${PROJECT_NAME}" "${PROJECT_SOURCE_DIR}/include")
+target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/include")

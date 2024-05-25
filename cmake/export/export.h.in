@@ -1,0 +1,4 @@
+#include "@_target@_export_or_import.h"
+#if !defined @_target@_api
+    #define @_target@_api @__target@_export
+#endif

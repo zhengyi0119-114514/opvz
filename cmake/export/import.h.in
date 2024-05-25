@@ -1,0 +1,3 @@
+#if !defined @__target@_api
+    #define @__target@_api extern
+#endif
